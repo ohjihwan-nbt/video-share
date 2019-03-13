@@ -53,53 +53,39 @@
   </div>
   <script src="https://akamai-cdn.cashslide.kr/jquery-1.9.1.min.js"></script>
   <script>
-    $(document).ready(function () {
-      var hidePlayerBtn = function () {
-        $('.play-btn').removeClass('disabled');
-      };
+  $(document).ready(function () {
+    var player;
 
-      var showPlayerBtn = function () {
-        $('.play-btn').addClass('disabled');
-      };
+    var videoHtmlTemplate = '<div class="play-btn play disabled"></div><video class="player"\n' +
+        ' src="https://alock-image.cashslide.kr/qiz/video/share_video_15523775653a02846805.mp4"\n' +
+        ' poster="https://alock-image.cashslide.kr/qiz/video/thumb_video_1552377563ccc89cc460.png"\n' +
+        ' type="video/mp4" style="width: 100%;"></video>';
 
+    var togglePlayButton = function(isHide) {
+      $('.play-btn')[isHide ? 'removeClass' : 'addClass']('disabled');
+      if (player) isHide ? player.pause() : player.play();
+    };
 
-      $('.playstart').click(function () {
-        hidePlayerBtn();
-        $('.video-box').html('<div class="play-btn play disabled"></div>\n' +
-          '        <video\n' +
-          '          class="player"\n' +
-          '          src="https://alock-image.cashslide.kr/qiz/video/share_video_15523775653a02846805.mp4"\n' +
-          '          poster="https://alock-image.cashslide.kr/qiz/video/thumb_video_1552377563ccc89cc460.png"\n' +
-          '          type="video/mp4"\n' +
-          '          style="width: 100%;"></video>')
-          .promise()
-          .done(function () {
-            $('.player').get(0).play();
-          });
-      });
+    var onPlayerClicked = function () {
+      if (player.paused) togglePlayButton(false);
+      else togglePlayButton(true);
+    };
 
-      $(document).on('click', '.player', function () {
-        if (this.paused) {
-          showPlayerBtn();
-          this.play();
-        } else {
-          hidePlayerBtn();
-          this.pause();
-        }
-      });
+    var onPlayStartInitialized = function () {
+      player = $('.player')[0];
+      player.play();
 
-      $(document).on('click', '.play', function () {
-        var self = $('.player').get(0);
+      $('.player').click(onPlayerClicked)
+      $('.play').click(onPlayerClicked)
+    };
 
-        if (self.paused) {
-          showPlayerBtn();
-          self.play();
-        } else {
-          hidePlayerBtn();
-          self.pause();
-        }
-      });
-    });
+    var onPlayStartButtonClicked = function () {
+      togglePlayButton(false);
+      $('.video-box').html(videoHtmlTemplate).promise().done(onPlayStartInitialized);
+    };
+
+    $('.playstart').click(onPlayStartButtonClicked);
+  });
   </script>
 </body>
 </html>
