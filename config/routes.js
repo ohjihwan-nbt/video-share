@@ -53,5 +53,11 @@ module.exports.routes = {
   //  ╩ ╩╩╚═╝╚═╝
 
   // 그 외 asset 영역을 제외한 나머지 처리
-  '/*': { name: 'DefaultController.default', skipAssets: true }
+  '/*': {
+    skipAssets: true,
+    fn (req, res) {
+      res.redirect('https://thequiz.live')
+    }
+  }
+
 };
