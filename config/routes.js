@@ -52,6 +52,6 @@ module.exports.routes = {
   //  ║║║║╚═╗║
   //  ╩ ╩╩╚═╝╚═╝
 
-  // 그 외
-  '*': 'DefaultController.default'
+  // 그 외 asset 영역을 제외한 나머지 처리
+  '/*': { name: 'DefaultController.default', skipAssets: true }
 };
