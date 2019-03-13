@@ -4,15 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>body,html{margin:0;padding:0}#container,body{background-color:#212121}html{height:100%}.detail,.video-box{height:700px}body{min-width:820px;max-height:100%}.content-body,.download,.user-info{padding:20px 30px}#container{width:100%}.content{width:900px;margin:0 auto}.logo{margin:25px 0}.fl{float:left}.inline{display:inline-block}.video-box{width:400px;position:relative;overflow:hidden}.play-btn,.player{cursor:pointer;position:absolute;top:50%}.disabled{display:none}.thumbnail{width:100%;height:100%;cursor:pointer}.info-box{width:500px;height:700px;background-color:#10101c}.play-btn{width:120px;height:120px;background:url(https://s3.ap-northeast-2.amazonaws.com/alock-cdn-origin/qiz/contents/share/play_button.png) center center no-repeat;left:50%;margin-left:-60px;margin-top:-60px;z-index:999}.avatar{vertical-align:top}.avatar img{width:70px;height:70px;border-radius:50%}.user{color:#fff;margin-top:5px;margin-left:10px;font-size:14px}.referrer,.winner{margin-top:4px}.referrer{color:#777;font-size:13px}.content-body{color:#fff;height:263px}.download{width:380px;height:247px}.description{padding:20px 0;color:#fff;border-top:rgba(255,255,255,.06) 1px solid}.qrcode{float:right;width:140px;height:140px;background-size:100% 100%;background-image:url(https://s3.ap-northeast-2.amazonaws.com/alock-cdn-origin/qiz/contents/share/qrcode.png)}.download-link{background-repeat:no-repeat;background-size:contain;background-position:top center;cursor:pointer;width:185px;height:80px}#android{background-image:url(https://s3.ap-northeast-2.amazonaws.com/alock-cdn-origin/qiz/contents/share/googleplay.png)}#iphone{background-image:url(https://s3.ap-northeast-2.amazonaws.com/alock-cdn-origin/qiz/contents/share/appstore.png)}.player{left:0;transform:translate(0,-50%);object-fit:cover}</style>
 </head>
 <body>
-  <h1>PC!!!!</h1>
-  <%= id %>
-  <%= title %>
-  <%= description %>
-  <%= imageUrl %>
-  <%= videoUrl %><br>
+  <div id="container">
+    <div class="content">
+      <div class="logo">
+        <img src="https://s3.ap-northeast-2.amazonaws.com/alock-cdn-origin/qiz/contents/share/logo.png">
+      </div>
+
+      <div class="detail">
+        <div class="video-box fl">
+          <img class="thumbnail playstart"
+            src="https://alock-image.cashslide.kr/qiz/video/thumb_video_1552377563ccc89cc460.png">
+          <div class="play-btn playstart"></div>
+
+        </div>
+        <div class="info-box fl">
+          <div class="user-info">
+            <div class="avatar inline">
+              <img src="https://alock-image.cashslide.kr/qiz/pic/4/profile_120.webp">
+            </div>
+            <div class="user inline">
+              <div>tk5641</div>
+              <div class="referrer">추천인코드 <b>6f23er</b></div>
+              <div class="winner">라이브퀴즈 총 3회우승</div>
+            </div>
+          </div>
+
+          <div class="content-body">
+            #라이브퀴즈쇼 #배혜지 #기상캐스터
+          </div>
+
+          <div class="download">
+            <p class="description">대한민국 넘버원 퀴즈쇼! 지금 바로 참여해보세요.</p>
+            <div class="qrcode"></div>
+            <a href="https://play.google.com/store/apps/details?id=com.nbt.lockcast.qiz&amp;referrer=from_code%3Dlive_hp"
+              target="_blank">
+              <div class="download-link" id="android"></div>
+            </a>
+            <a href="https://itunes.apple.com/kr/app/id1274326322" target="_blank">
+              <div class="download-link" id="iphone"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://akamai-cdn.cashslide.kr/jquery-1.9.1.min.js"></script>
   <script>
+    $(document).ready(function () {
+      var hidePlayerBtn = function () {
+        $('.play-btn').removeClass('disabled');
+      };
+
+      var showPlayerBtn = function () {
+        $('.play-btn').addClass('disabled');
+      };
+
+
+      $('.playstart').click(function () {
+        hidePlayerBtn();
+        $('.video-box').html('<div class="play-btn play disabled"></div>\n' +
+          '        <video\n' +
+          '          class="player"\n' +
+          '          src="https://alock-image.cashslide.kr/qiz/video/share_video_15523775653a02846805.mp4"\n' +
+          '          poster="https://alock-image.cashslide.kr/qiz/video/thumb_video_1552377563ccc89cc460.png"\n' +
+          '          type="video/mp4"\n' +
+          '          style="width: 100%;"></video>')
+          .promise()
+          .done(function () {
+            $('.player').get(0).play();
+          });
+      });
+
+      $(document).on('click', '.player', function () {
+        if (this.paused) {
+          showPlayerBtn();
+          this.play();
+        } else {
+          hidePlayerBtn();
+          this.pause();
+        }
+      });
+
+      $(document).on('click', '.play', function () {
+        var self = $('.player').get(0);
+
+        if (self.paused) {
+          showPlayerBtn();
+          self.play();
+        } else {
+          hidePlayerBtn();
+          self.pause();
+        }
+      });
+    });
   </script>
 </body>
 </html>
