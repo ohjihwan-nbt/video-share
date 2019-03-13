@@ -66,6 +66,10 @@
       if (player) isHide ? player.pause() : player.play();
     };
 
+    var onPlayerEnded = function() {
+      togglePlayButton(true)
+    };
+
     var onPlayerClicked = function () {
       if (player.paused) togglePlayButton(false);
       else togglePlayButton(true);
@@ -77,6 +81,7 @@
 
       $('.player').click(onPlayerClicked)
       $('.play').click(onPlayerClicked)
+      $('.player').on('ended', onPlayerEnded)
     };
 
     var onPlayStartButtonClicked = function () {
