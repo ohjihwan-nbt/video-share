@@ -29,6 +29,9 @@ module.exports = {
       description: '설명',
       imageUrl: '공유이미지경로',
       videoUrl: '동영상경로',
+      nickname: `닉네임${_.random(1, 10000)}`,
+      referrer: `abcd${_.random(1, 10000)}`,
+      winningCount: _.random(1, 10000),
       data: JSON.stringify(shareInformation || {})
     }
 
