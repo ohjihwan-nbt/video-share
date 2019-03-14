@@ -22,7 +22,7 @@ module.exports = {
     const viewPath = getViewPath(req)
 
     // id를 통해 API 서버에 해당 데이터와 관련된 정보를 얻어온다. (메타 제목, 메타 내용, 썸네일이미지, 동영상 경로)
-    const shareInformation = await ShareService.getShareInformation(id)
+    const shareInformation = await ShareService.getShareInformation(Number(id).toString(10))
 
     if (shareInformation.error) {
       return redirect()
