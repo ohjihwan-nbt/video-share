@@ -4,6 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%-title%></title>
+  <meta name="description" content="더퀴즈라이브 - <%-description%>">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <meta property="og:locale" content="ko-KR"/>
+  <meta property="og:locale:alternate" content="ko_KR"/>
+  <meta property="og:locale:alternate" content="ja_JP"/>
+  <meta property="og:locale:alternate" content="en_US"/>
+  <meta property="og:title" content="<%-title%>"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:description" content="더퀴즈라이브 - <%-description%>"/>
+  <meta property="og:image" content="<%-imageUrl%>"/>
+  <meta property="og:url" content="https://www.thequiz.live/index.html"/>
+
+  <meta property="al:android:app_name" content="TheQuizLive"/>
+  <meta property="al:android:package" content="com.nbt.lockcast.qiz"/>
+  <meta property="al:android:url" content="qiz://lockcast/main/live"/>
+  <meta property="al:ios:app_name" content="TheQuizLive"/>
+  <meta property="al:ios:app_store_id" content="1274326322"/>
+  <meta property="al:ios:url" content="qiz://lockcast/main/live"/>
+
+  <meta name="twitter:card" content="app">
+  <meta name="twitter:description" content="TheQuizLive">
+  <meta name="twitter:app:name:googleplay" content="TheQuizLive">
+  <meta name="twitter:app:id:googleplay" content="com.nbt.lockcast.qiz">
+  <meta name="twitter:app:url:googleplay" content="https://play.google.com/store/apps/details?id=com.nbt.lockcast.qiz&referrer=from_code%3Dlive_hp">
+  <meta name="twitter:app:name:iphone" content="TheQuizLive">
+  <meta name="twitter:app:id:iphone" content="1274326322">
+  <meta name="twitter:app:url:iphone" content="https://itunes.apple.com/kr/app/id1274326322">
+  <meta name="twitter:app:name:ipad" content="TheQuizLive">
+  <meta name="twitter:app:id:ipad" content="1274326322">
+  <meta name="twitter:app:url:ipad" content="https://itunes.apple.com/kr/app/id1274326322">
+
+  <link href="https://www.thequiz.live/images/favicon.ico" rel="shortcut icon">
+  <link href="https://www.thequiz.live/images/favicon.ico" rel="apple-touch-icon">
+
   <style>
     @import url(//fonts.googleapis.com/earlyaccess/notosansgothic.css);
     body,
@@ -174,6 +209,7 @@
   </style>
 </head>
 <body>
+  <span style="color: #fff;"><%- req.protocol %>://<%- req.hostname %><%- req.port ? ':' + req.port : '' %><%- req.path %></span>
   <div id="container">
     <div class="content">
       <div class="logo">
@@ -182,23 +218,21 @@
 
       <div class="detail">
         <div class="video-box fl">
-          <img class="thumbnail playstart"
-            src="https://alock-image.cashslide.kr/qiz/video/thumb_video_1552377563ccc89cc460.png">
+          <img class="thumbnail playstart" src="<%-imageUrl%>">
           <div class="play-btn playstart"></div>
         </div>
         <div class="info-box fl">
           <div class="user-info">
-            <div class="avatar inline">
+            <!-- <div class="avatar inline">
               <img src="https://alock-image.cashslide.kr/qiz/pic/4/profile_120.webp">
-            </div>
+            </div> -->
             <div class="user inline">
               <div><%= nickname %></div>
               <div class="referrer">추천인코드 <b><%= referrer %></b></div>
-              <div class="winner">라이브퀴즈 총 <%= winningCount %>회 우승</div>
             </div>
           </div>
 
-          <div class="content-body">#라이브퀴즈쇼 #배혜지 #기상캐스터 #URL의아이디<%= id %></div>
+          <div class="content-body">#라이브퀴즈쇼 #더퀴즈라이브 #<%- nickname %> #<%- referrer %></div>
 
           <div class="download">
             <p class="description">대한민국 넘버원 퀴즈쇼! 지금 바로 참여해보세요.</p>
@@ -220,8 +254,8 @@
   $(document).ready(function () {
     var player;
 
-    var videoHtmlTemplate = '<div class="play-btn play disabled">'+
-        ' <img src="https://s3.ap-northeast-2.amazonaws.com/alock-cdn-origin/qiz/contents/share/play_button.png" alt="start"></div><video playsinline class="player"' +
+    var videoHtmlTemplate = '<div class="play-btn play disabled"></div>'+
+        ' <video playsinline class="player"' +
         ' src="<%-videoUrl%>"' +
         ' poster="<%-imageUrl%>"' +
         ' type="video/mp4" style="width: 100%;"></video>';
