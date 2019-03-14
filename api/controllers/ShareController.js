@@ -1,6 +1,5 @@
 const { shareservice: ShareService } = global.sails.services
-const hosts = sails.config.hosts
-const hostUrl = hosts[sails.config.environment]
+const clientHostUrl = sails.config.hosts.client[sails.config.environment]
 
 const useragent = require('useragent')
 
@@ -38,7 +37,7 @@ module.exports = {
       videoUrl: content.share_video_url,
       nickname: content.creator.name,
       referrer: content.creator.referrer,
-      fullpath: `${hostUrl}/${id}`
+      fullpath: `${clientHostUrl}/${id}`
     }
 
     return res.view(viewPath, { ...responseModel })
