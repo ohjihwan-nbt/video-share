@@ -35,7 +35,8 @@ module.exports = {
       imageUrl: content.video_thumbnail_url,
       videoUrl: content.share_video_url,
       nickname: content.creator.name,
-      referrer: content.creator.referrer
+      referrer: content.creator.referrer,
+      fullpath: `http://video.goree.kr/${id}` // 환경에 따라 serverUrl 알맞게 서버에서 내려주기
     }
 
     return res.view(viewPath, { ...responseModel })
