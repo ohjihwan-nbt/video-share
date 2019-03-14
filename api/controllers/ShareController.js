@@ -1,6 +1,6 @@
 const { shareservice: ShareService } = global.sails.services
-const explicitHost = sails.config.explicitHost
-const hostUrl = explicitHost[sails.config.environment]
+const hosts = sails.config.hosts
+const hostUrl = hosts[sails.config.environment]
 
 const useragent = require('useragent')
 
