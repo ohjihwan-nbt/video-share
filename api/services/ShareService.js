@@ -1,4 +1,5 @@
 const axios = require('axios')
+const serverHostUrl = sails.config.hosts.server[sails.config.environment]
 
 module.exports = {
   async getShareInformation (id) {
@@ -10,12 +11,12 @@ module.exports = {
       // const response = await axios.get(`http://qiz-­stg-api.lockcast.co.kr/api/play_contents/${id}/share`)
 
       // // 임시 사용 경로 (http 요청 테스트)
-      // const response = await axios.get(`http://api.fureweb.com/exchangeRate/USD`)
-
+      // const response = await axios.get(`${serverHostUrl}/api/play_contents/${id}/share`).then(r => r.data)
+      
       // // 응답 바인딩
       // result.status = response.status
-      // result.data = response.data
-
+      // result.data = response.data[0].contents
+      
       // 임시 응답
       result.status = 200
       result.data = {
