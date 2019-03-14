@@ -13,7 +13,7 @@ const redirect = (res) => res.redirect('https://thequiz.live')
 
 module.exports = {
   async show (req, res) {
-    const { id } = req.params
+    const { id } = req.params // id -> Number를 32진수로 변환한 값
 
     if (!id) return redirect()
 
@@ -26,16 +26,18 @@ module.exports = {
       return redirect()
     }
 
+    const { data: content } = shareInformation
+
     const responseModel = {
       id,
-      title: '제목',
-      description: '설명',
-      imageUrl: '공유이미지경로',
-      videoUrl: '동영상경로',
-      nickname: `닉네임${_.random(1, 10000)}`,
-      referrer: `abcd${_.random(1, 10000)}`,
-      winningCount: _.random(1, 10000),
-      data: JSON.stringify(shareInformation.data || {})
+      title: content.title,
+      description: `${content.creator.name}님이 출제해주신 문제입니다.`,
+      imageUrl: content.video_thumbnail_url,
+      videoUrl: content.share_video_url,
+      nickname: content.creator.name,
+      referrer: content.creator.referrer,
+      winningCount: content.creator.winning_count || _.random(1, 10000),
+      data: JSON.stringify(content || {})
     }
 
     return res.view(viewPath, { ...responseModel })
