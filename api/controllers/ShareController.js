@@ -1,4 +1,6 @@
 const { shareservice: ShareService } = global.sails.services
+const explicitHost = sails.config.explicitHost
+const hostUrl = explicitHost[sails.config.environment]
 
 const useragent = require('useragent')
 
@@ -36,7 +38,7 @@ module.exports = {
       videoUrl: content.share_video_url,
       nickname: content.creator.name,
       referrer: content.creator.referrer,
-      fullpath: `http://video.goree.kr/${id}` // 환경에 따라 serverUrl 알맞게 서버에서 내려주기
+      fullpath: `${hostUrl}/${id}`
     }
 
     return res.view(viewPath, { ...responseModel })
