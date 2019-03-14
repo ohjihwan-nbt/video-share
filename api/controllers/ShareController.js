@@ -35,9 +35,7 @@ module.exports = {
       imageUrl: content.video_thumbnail_url,
       videoUrl: content.share_video_url,
       nickname: content.creator.name,
-      referrer: content.creator.referrer,
-      winningCount: content.creator.winning_count || _.random(1, 10000),
-      data: JSON.stringify(content || {})
+      referrer: content.creator.referrer
     }
 
     return res.view(viewPath, { ...responseModel })
